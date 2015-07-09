@@ -11,61 +11,63 @@ discard_pile = []
 play = True
 deal = True
 players_turn = False
+players_score = 0
+dealers_score = 0
+
 
 card_deck = {
-	
-	"Ad" : 1,
-	"2d" : 2,
-	"3d" : 3,
-	"4d" : 4,
-	"5d" : 5,
-	"6d" : 6,
-	"7d" : 7,
-	"8d" : 8,
-	"9d" : 9,
-	"10d" : 10,
-	"Jd" : 10,
-	"Qd" : 10,
-	"Kd" : 10,
-	"As" : 1,
-	"2s" : 2,
-	"3s" : 3,
-	"4s" : 4,
-	"5s" : 5,
-	"6s" : 6,
-	"7s" : 7,
-	"8s" : 8,
-	"9s" : 9,
-	"10s" : 10,
-	"Js" : 10,
-	"Qs" : 10,
-	"Ks" : 10,
-	"Ac" : 1,
-	"2c" : 2,
-	"3c" : 3,
-	"4c" : 4, 
-	"5c" : 5, 
-	"6c" : 6, 
-	"7c" : 7, 
-	"8c" : 8, 
-	"9c" : 9, 
-	"10c" : 10, 
-	"Jc" : 10, 
-	"Qc" : 10, 
-	"Kc" : 10,
-	"Ah" : 1, 
-	"2h" : 2, 
-	"3h" : 3, 
-	"4h" : 4, 
-	"5h" : 5, 
-	"6h" : 6,
-	"7h" : 7, 
-	"8h" : 8, 
-	"9h" : 9, 
-	"10h" : 10, 
-	"Jh" : 10, 
-	"Qh" : 10, 
-	"Kh" : 10
+ "Ad": 1,
+ "2d": 2,
+ "3d": 3,
+ "4d": 4,
+ "5d": 5,
+ "6d": 6,
+ "7d": 7,
+ "8d": 8,
+ "9d": 9,
+ "10d": 10,
+ "Jd": 10,
+ "Qd": 10,
+ "Kd": 10,
+ "As": 1,
+ "2s": 2,
+ "3s": 3,
+ "4s": 4,
+ "5s": 5,
+ "6s": 6,
+ "7s": 7,
+ "8s": 8,
+ "9s": 9,
+ "10s": 10,
+ "Js": 10,
+ "Qs": 10,
+ "Ks": 10,
+ "Ac": 1,
+ "2c": 2,
+ "3c": 3,
+ "4c": 4,
+ "5c": 5,
+ "6c": 6,
+ "7c": 7,
+ "8c": 8,
+ "9c": 9,
+ "10c": 10,
+ "Jc": 10,
+ "Qc": 10,
+ "Kc": 10,
+ "Ah": 1,
+ "2h": 2,
+ "3h": 3,
+ "4h": 4,
+ "5h": 5,
+ "6h": 6,
+ "7h": 7,
+ "8h": 8,
+ "9h": 9,
+ "10h": 10,
+ "Jh": 10,
+ "Qh": 10,
+ "Kh": 10
 }
 
 def generate_card():
@@ -144,9 +146,43 @@ def generate_dealers_hand():
 
 	print dealers_hand
 
+def generate_player_score(hand_player):
+	players_score = 0
+	for a in hand_player:
+		for key in card_deck:
+			if a == key:
+				if a == "Ah" or a == "Ac" or a == "Ad" or a == "As":
+					players_score += int(raw_input("Enter a value 1 or 11: "))
+				else:
+					players_score += card_deck[key]
+
+	print players_score
+	return players_score
+
+def generate_dealer_score(hand_dealer):
+	dealers_score = 0
+	for f in hand_dealer:
+		for key in card_deck:
+			if f == key:
+				if f == "Ah" or f == "Ac" or f == "Ad" or f == "As":
+					if dealers_score <= 10:
+						dealers_score += 11
+					elif dealers_score > 10:
+						dealers_score += 1
+				else:
+					dealers_score += card_deck[key]
+
+	print dealers_score
+	return dealers_score
+
+
+
 
 generate_players_hand()
 generate_dealers_hand()
+generate_player_score(players_hand)
+generate_dealer_score(dealers_hand)
+
 
 
 	
