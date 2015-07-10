@@ -11,8 +11,7 @@ discard_pile = []
 play = True
 deal = True
 players_turn = False
-players_score = 0
-dealers_score = 0
+
 
 
 card_deck = {
@@ -123,8 +122,6 @@ def generate_players_hand():
 						deal_player = True
 				players_hand.append(card)
 
-	print players_hand
-
 def generate_dealers_hand():
 
 	deal_dealer = True
@@ -144,8 +141,6 @@ def generate_dealers_hand():
 			else:
 				dealers_hand.append(card)
 
-	print dealers_hand
-
 def generate_player_score(hand_player):
 	players_score = 0
 	for a in hand_player:
@@ -156,7 +151,6 @@ def generate_player_score(hand_player):
 				else:
 					players_score += card_deck[key]
 
-	print players_score
 	return players_score
 
 def generate_dealer_score(hand_dealer):
@@ -172,17 +166,30 @@ def generate_dealer_score(hand_dealer):
 				else:
 					dealers_score += card_deck[key]
 
-	print dealers_score
 	return dealers_score
 
+def player_turn_gui(p_hand, d_hand):
+
+	player_score = generate_player_score(p_hand)
+	dealer_score = 0
 
 
+	for key in card_deck:
+		if key == d_hand[0]:
+			dealer_score = card_deck[key]
+			break
+
+
+	print "Player's total: " + str(player_score) + "     " + "Dealer's total: " + str(dealer_score) + "\n\n"
+	print "Dealer:"
+	print d_hand[0] + " x\n\n"
+	print "Player:"
+	for p_card in p_hand:
+		print  p_card + " ",
 
 generate_players_hand()
 generate_dealers_hand()
-generate_player_score(players_hand)
-generate_dealer_score(dealers_hand)
-
+player_turn_gui(players_hand, dealers_hand)
 
 
 	
