@@ -215,6 +215,23 @@ def player_hit_card():
 				players_hand.append(card)
 			count += 1
 
+def dealer_hit_card():
+	count = 0
+	add_card = True
+	while add_card:
+		add_card = False
+		card = generate_card()
+		for s in players_hand:
+			if s == card:
+				add_card = True
+				break
+		for d in dealers_hand:
+			if d == card:
+				add_card = True
+				break
+			elif count == len(dealers_hand) - 1:
+				dealers_hand.append(card)
+			count += 1
 
 def player_turn():
 
@@ -232,7 +249,7 @@ def player_turn():
 			else:
 				turn = True
 		elif hit_stay == 's' or hit_stay == 'S':
-			player_turn_gui(players_hand, dealers_hand)
+			dealer_turn()
 		else:
 			print "Invalid option"
 			turn = True
@@ -251,7 +268,28 @@ def dealer_gui(p_hand, d_hand):
 	for p_card in p_hand:
 		print  p_card + " ",
 
+def dealer_turn():
 
+	player_score = generate_player_score(players_hand)
+	dealer_score = generate_dealer_score(dealers_hand)
+	hit = True
+
+	dealer_gui(players_hand, dealers_hand)
+	if dealer_score <= 16:
+		hit = True
+	else:
+		hit = False
+
+	if hit:
+		dealer_hit_card()
+		dealer_gui(players_hand, dealers_hand)
+	else:
+		if player_score > dealer_score:
+			print "Player wins!"
+		elif player_score == dealer_score:
+			print "Push!"
+		else:
+			print "Dealer wins!"
 
 def play_game():
 
@@ -259,5 +297,5 @@ def play_game():
 	generate_dealers_hand()
 	player_turn()
 
-	
+play_game()
 
