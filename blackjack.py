@@ -179,18 +179,71 @@ def player_turn_gui(p_hand, d_hand):
 			dealer_score = card_deck[key]
 			break
 
+	if player_score > 21:
+		print "Player's total: " + str(player_score) + "     " + "Dealer's total: " + str(dealer_score) + "\n\n"
+		print "Dealer:"
+		print d_hand[0] + " x\n\n"
+		print "Player:"
+		for p_card in p_hand:
+			print  p_card + " ",
+		print "\n\nBUST!"
 
-	print "Player's total: " + str(player_score) + "     " + "Dealer's total: " + str(dealer_score) + "\n\n"
-	print "Dealer:"
-	print d_hand[0] + " x\n\n"
-	print "Player:"
-	for p_card in p_hand:
-		print  p_card + " ",
+	else:
+		print "Player's total: " + str(player_score) + "     " + "Dealer's total: " + str(dealer_score) + "\n\n"
+		print "Dealer:"
+		print d_hand[0] + " x\n\n"
+		print "Player:"
+		for p_card in p_hand:
+			print  p_card + " ",
 
-generate_players_hand()
-generate_dealers_hand()
-player_turn_gui(players_hand, dealers_hand)
+def player_hit_card():
+
+	count = 0
+	add_card = True
+	while add_card:
+		add_card = False
+		card = generate_card()
+		for s in players_hand:
+			if s == card:
+				add_card = True
+				break
+		for d in dealers_hand:
+			if d == card:
+				add_card = True
+				break
+			elif count == len(dealers_hand) - 1:
+				players_hand.append(card)
+			count += 1
 
 
+def player_turn():
+
+	player_turn_gui(players_hand, dealers_hand)
+	turn = True
+	while turn:
+		turn = False
+		hit_stay = raw_input("\n\n\n\nHit or Stay? Enter 'h' for hit 's' for stay: ")
+		if hit_stay == 'h'or hit_stay == 'H':
+			player_hit_card()
+			player_turn_gui(players_hand, dealers_hand)
+			player_score = generate_player_score(players_hand)
+			if player_score > 21:
+				turn = False
+			else:
+				turn = True
+		elif hit_stay == 's' or hit_stay == 'S':
+			player_turn_gui(players_hand, dealers_hand)
+		else:
+			print "Invalid option"
+			turn = True
+
+def play_game():
+
+	generate_players_hand()
+	generate_dealers_hand()
+	player_turn()
+
+
+play_game()
 	
 
