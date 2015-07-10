@@ -237,13 +237,27 @@ def player_turn():
 			print "Invalid option"
 			turn = True
 
+def dealer_gui(p_hand, d_hand):
+
+	player_score = generate_player_score(p_hand)
+	dealer_score = generate_dealer_score(d_hand)
+
+	print "Player's total: " + str(player_score) + "     " + "Dealer's total: " + str(dealer_score) + "\n\n"
+	print "Dealer:"
+	for d_card in d_hand:
+		print d_card + " ",
+	print "\n\n"
+	print "Player:"
+	for p_card in p_hand:
+		print  p_card + " ",
+
+
+
 def play_game():
 
 	generate_players_hand()
 	generate_dealers_hand()
 	player_turn()
 
-
-play_game()
 	
 
